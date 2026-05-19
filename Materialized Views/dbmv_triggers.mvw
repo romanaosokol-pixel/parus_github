@@ -1,0 +1,11 @@
+create materialized view DBMV_TRIGGERS
+refresh force on demand
+as
+select
+  TRIGGER_NAME,
+  TABLE_NAME,
+  DESCRIPTION,
+  WHEN_CLAUSE,
+  to_lob(TRIGGER_BODY) SOURCE
+from USER_TRIGGERS;
+

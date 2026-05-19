@@ -1,0 +1,13 @@
+create materialized view UDO_M_INFIN_DOGNUM1022
+refresh force on demand
+as
+select
+       a.kls_num
+      ,a.kls_name
+      ,a.klsref_num
+  from t_kls_all@infin a
+      ,t_klsd_1022@infin  d
+ where a.kls_id = d.kls_id
+   and a.klsref_num = 1022
+   and trim(a.kls_name) is not null;
+

@@ -1,0 +1,82 @@
+create materialized view UDO_M_INFIN_TRANSINVDEPTSP_DT
+refresh force on demand
+as
+Select T.BAL_NN,
+        T.PERIOD,
+        T.OPER_DATE,
+        T.dt,
+        T.kt,
+        T.SUMMA,
+        T.DOC,
+        T.QUANTITY1,
+        t.COMENT,
+        T.PRICE,
+        T.DOC_DIGIT_NUM,
+        S.KLS_NAME,
+        S.KLS_NUM as sSERNUMB,
+        S.KLS_DIGIT_NUM as nSERNUMB
+   from t_bal32022_1@INFIN T, t_kls_all@INFIN s
+   where (T.DT = '1000' or substr(T.Dt, 1, 2) = '10')
+     and s.kls_id = t.KT_AN1
+
+
+     union
+
+ Select T.BAL_NN,
+        T.PERIOD,
+        T.OPER_DATE,
+        T.dt,
+        T.kt,
+        T.SUMMA,
+        T.DOC,
+        T.QUANTITY1,
+        t.COMENT,
+        T.PRICE,
+        T.DOC_DIGIT_NUM,
+        S.KLS_NAME,
+        S.KLS_NUM as sSERNUMB,
+        S.KLS_DIGIT_NUM as nSERNUMB
+   from t_bal42022_1@INFIN T, t_kls_all@INFIN s
+   where (T.DT = '1000' or substr(T.Dt, 1, 2) = '10')
+     and s.kls_id = t.KT_AN1
+
+          union
+
+ Select T.BAL_NN,
+        T.PERIOD,
+        T.OPER_DATE,
+        T.dt,
+        T.kt,
+        T.SUMMA,
+        T.DOC,
+        T.QUANTITY1,
+        t.COMENT,
+        T.PRICE,
+        T.DOC_DIGIT_NUM,
+        S.KLS_NAME,
+        S.KLS_NUM as sSERNUMB,
+        S.KLS_DIGIT_NUM as nSERNUMB
+   from t_bal12023_1@INFIN T, t_kls_all@INFIN s
+   where (T.DT = '1000' or substr(T.Dt, 1, 2) = '10')
+     and s.kls_id = t.KT_AN1
+
+          union
+
+ Select T.BAL_NN,
+        T.PERIOD,
+        T.OPER_DATE,
+        T.dt,
+        T.kt,
+        T.SUMMA,
+        T.DOC,
+        T.QUANTITY1,
+        t.COMENT,
+        T.PRICE,
+        T.DOC_DIGIT_NUM,
+        S.KLS_NAME,
+        S.KLS_NUM as sSERNUMB,
+        S.KLS_DIGIT_NUM as nSERNUMB
+   from t_bal22023_1@INFIN T, t_kls_all@INFIN s
+   where (T.DT = '1000' or substr(T.Dt, 1, 2) = '10')
+     and s.kls_id = t.KT_AN1;
+

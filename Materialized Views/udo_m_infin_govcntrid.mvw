@@ -1,0 +1,30 @@
+create materialized view UDO_M_INFIN_GOVCNTRID
+refresh force on demand
+as
+select a.kls_num          as kls_num,         -- kol_b номер
+       a.kls_id           as kls_id,          -- kls_id
+       trim(a.kls_name)   as sCODE,           -- kol_d наименование (№ ИГК)
+       al1.kls_num        as kol_e,           -- Заказчик Ном
+       d."p1"             as nAGENT_kls_id,   -- kls_id Заказчика
+       al1.kls_name       as kol_f,           -- Заказчик Наим
+       d."p8"             as sAGENT_SPEC,     -- kol_g Отдельный Р/С заказчика
+       d."p9"             as SBANKNAME,       -- kol_h Наименование банка заказчика
+       d."p10"            as sBANKKORR,       -- kol_i КоррСчет Банка заказчика
+       d."p11"            as sBANKBik,        -- kol_j БИК Банка заказчика
+       d."p2"             as kol_k,           -- kol_k Гос контракт Головной
+       d."p3"             as kol_l,           -- kol_l Дата ГК Головного
+       d."p4"             as sContr_Num,      -- kol_m Наш контракт Номер
+       d."p5"             as dContr_Date,     -- kol_n Наш контракт Дата
+       d."p6"             as sContractRegNum, -- «Номер контракта Учетный номер»
+       d."p7"             as sAGNACC,         -- kol_p Номер Отдельного счета
+       al0.kls_num        as kol_q,           -- Направление Ном
+       al0.kls_name       as kol_r            -- Направление Наим
+  from t_kls_all@infin a
+      ,t_klsd_3100@infin d
+      ,t_kls_all@infin   al0
+      ,t_kls_all@infin   al1
+ where a.kls_id = d.kls_id
+   and trim(a.kls_name) is not null
+   and al0.kls_id (+) = d."p12"
+   and al1.kls_id (+) = d."p1";
+
