@@ -3,8 +3,9 @@ create or replace function usr_f_tic_get_faoop_work_sum
 20/02/2026 Степанов М.
 Раздел "Расходные накладные на отпуск потребителям"
 Функция для колонки "#Отработано в графиках отпуска (сумма)"
-create public synonym usr_f_tic_get_faoop_work_sum for usr_f_tic_get_faoop_work_sum;
-grant execute on usr_f_tic_get_faoop_work_sum to public;
+
+Городецкий. Для накалдных с 0 суммой и 0 калькуляцией выводит "Полностью" 07-05-2026
+
 */
 (
  nRN            in number
@@ -13,6 +14,7 @@ return varchar2
 is
   nCalc_Sum     pkg_std.tsumm;
   nSpec_Sum     pkg_std.tsumm;
+  
 
   sResult   pkg_std.tstring;
 begin
@@ -23,7 +25,7 @@ begin
              from transinvcustspecs tics
             where tics.prn = nRN ) a ;
 
-  if nCalc_Sum = 0 then
+  if nCalc_Sum = 0 and nSpec_Sum != 0 then
     sResult := 'Нет';
   elsif nCalc_Sum = nSpec_Sum then
     sResult := 'Полностью';
